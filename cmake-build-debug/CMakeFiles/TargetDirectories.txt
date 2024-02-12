@@ -1,0 +1,3 @@
+/Users/persist/Desktop/Code/Picard_iteration/cmake-build-debug/CMakeFiles/Picard_iteration.dir
+/Users/persist/Desktop/Code/Picard_iteration/cmake-build-debug/CMakeFiles/edit_cache.dir
+/Users/persist/Desktop/Code/Picard_iteration/cmake-build-debug/CMakeFiles/rebuild_cache.dir
