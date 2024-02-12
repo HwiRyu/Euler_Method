@@ -21,7 +21,7 @@ double differential_function(double x, double y) {
 //Input parameter function, like x = f(t), y = g(t).
 Point parameter_function(double t) {
     Point output;
-    output.x = sin(4*t) * (std::exp(cos(2*t)) - 2 * cos(34*t) - pow(sin(5/12), 5));
+    output.x = sin(4*t) * (std::exp(cos(1/2*t)) - 2 * cos(34*t) - pow(sin(5/12), 5));
     output.y = cos(5*t) * (std::exp(cos(3*t)) - 2 * cos(57*t) - pow(sin(5/12), 5));
     return output;
 }
