@@ -8,7 +8,7 @@ struct Point {
 
 //Input one variable functoin, like y = sin(x).
 double one_variable_function(double x) {
-    return 1;
+    return sin(pow(x, 3) - 5 * x + 3);
 }
 
 //Input Differential function. Find approximate solution.
@@ -52,10 +52,12 @@ double origin_function_parameter(sf::RenderWindow& window, sf::VertexArray& grap
         p = parameter_input_function(t);
         x = p.x;
         y = p.y;
+
         if (abs(point_x - x) < 5/size && abs(point_y - y) < 5/size) {
             click_t.push_back(t);
             click = true;
         }
+
         if (abs(current_t_value - t) < 0.01)
             circle.setPosition(sf::Vector2f(x_scale(x, size)-circle.getRadius(), y_scale(y, size)-circle.getRadius())); // Set position based on scaled coordinates
         else
