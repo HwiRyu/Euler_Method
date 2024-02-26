@@ -8,7 +8,7 @@ struct Point {
 
 //Input one variable functoin, like y = sin(x).
 double one_variable_function(double x) {
-    return sin(pow(x, 3) - 5 * x + 3);
+    return pow(x, 2) - 2 * abs(x) - 8;
 }
 
 //Input Differential function. Find approximate solution.
@@ -21,8 +21,8 @@ double differential_function(double x, double y) {
 //Input parameter function, like x = f(t), y = g(t).
 Point parameter_function(double t) {
     Point output;
-    output.x = sin(4*t) * (std::exp(cos(1/2*t)) - 2 * cos(17*t) - pow(sin(5/12), 5));
-    output.y = cos(5*t) * (std::exp(cos(3*t)) - 2 * cos(11*t) - pow(sin(5/12), 5));
+    output.x = sin(4*t) * (std::exp(cos(1/2*t)) - 2 * cos(18*t) - pow(sin(1/12), 5));
+    output.y = cos(5*t) * (std::exp(cos(1/3*t)) - 2 * cos(11*t) - pow(sin(1/12), 5));
     return output;
 }
 
@@ -40,7 +40,7 @@ double origin_function_parameter(sf::RenderWindow& window, sf::VertexArray& grap
     Point p;
     double x, y;
     double t_start = 0;
-    double t_end = 100;
+    double t_end = 10;
     double output = -100000000;
     bool click = false;
     std::vector<double> click_t;
@@ -58,7 +58,7 @@ double origin_function_parameter(sf::RenderWindow& window, sf::VertexArray& grap
             click = true;
         }
 
-        if (abs(current_t_value - t) < 0.01)
+        if (abs(current_t_value - t) <= 0.001)
             circle.setPosition(sf::Vector2f(x_scale(x, size)-circle.getRadius(), y_scale(y, size)-circle.getRadius())); // Set position based on scaled coordinates
         else
             graph.append(sf::Vertex(sf::Vector2f(x_scale(x, size), y_scale(y, size)), sf::Color::Green));
@@ -75,6 +75,7 @@ double origin_function_parameter(sf::RenderWindow& window, sf::VertexArray& grap
 void EulerMethod(sf::RenderWindow& window, sf::VertexArray& graph, double startX, double startY, double stepSize, double size, bool tracer, double input_function(double, double), double start, double end) {
     double y = startY;
     graph.clear();
+
     for (double x = startX; x <= end/size; x += stepSize) {
         if (x_scale(x, size) >= start)
             graph.append(sf::Vertex(sf::Vector2f(x_scale(x, size), y_scale(y, size)), sf::Color::Red));

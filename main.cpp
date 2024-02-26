@@ -67,8 +67,6 @@ int main() {
     // Main loop
     while (window.isOpen()) {
         elapsedTime = clock_t.getElapsedTime();
-
-        // increaseValue가 true이고 1초가 경과하면 값 증가
         if (increaseValue && elapsedTime.asSeconds() >= 0.001f) {
             t_value += 0.001f; // 간격을 1초로 변경함
             clock_t.restart();
@@ -120,7 +118,7 @@ int main() {
                         xValue = 0;
                         yValue = 0;
                         t_value = 0;
-                        increaseValue = false;
+                        increaseValue = true;
                         window.display();
 
                         window.clear();
@@ -195,6 +193,7 @@ int main() {
                 }
             }
         }
+
         stepSizeText.setString("Step Size: " + std::to_string(stepSize));
         initial_point.setString("Initial value: x =" + std::to_string(startX) + ", y =" + std::to_string(startY));
         tracer_on.setString("Tracer mode On");
