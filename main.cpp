@@ -193,7 +193,6 @@ int main() {
                 }
             }
         }
-
         stepSizeText.setString("Step Size: " + std::to_string(stepSize));
         initial_point.setString("Initial value: x =" + std::to_string(startX) + ", y =" + std::to_string(startY));
         tracer_on.setString("Tracer mode On");
