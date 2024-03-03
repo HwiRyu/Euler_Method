@@ -1,3 +1,7 @@
+I will add function that calculate supremum of error.
+
+Proof of convergence in one-variable:
+
 ![KakaoTalk_Photo_2024-03-04-03-02-22 001](https://github.com/HwiRyu/Euler_Method/assets/123755711/92c9da89-45bf-4243-a771-af66d9104deb)
 
 ![KakaoTalk_Photo_2024-03-04-03-02-22 002](https://github.com/HwiRyu/Euler_Method/assets/123755711/bfbe06ef-ed47-45fd-88e9-fa45dff0716a)
