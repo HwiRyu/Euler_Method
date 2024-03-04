@@ -177,7 +177,7 @@ int main() {
                 }
             }
 
-            if (event.type == sf::Event::MouseMoved) {
+            if ((!tracer) && event.type == sf::Event::MouseMoved) {
                 if (sf::Mouse::isButtonPressed(sf::Mouse::Left)) {
                     sf::Vector2i newMousePos = sf::Mouse::getPosition(window);
                     sf::Vector2f delta = window.mapPixelToCoords(newMousePos) - window.mapPixelToCoords(lastMousePos);

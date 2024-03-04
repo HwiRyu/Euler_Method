@@ -8,14 +8,14 @@ struct Point {
 
 //Input one variable functoin, like y = sin(x).
 double one_variable_function(double x) {
-    return pow(x, 2) - 2 * abs(x) - 8;
+    return pow(x, 2) - 2*x - 8;
 }
 
 //Input Differential function. Find approximate solution.
 double differential_function(double x, double y) {
     //differential_function is f(x,y(t)). i.e dy/dx = f(x, y(x)).
     //Ex) If origin function is tan(x), then dy/dx = f(x,y(x)) = 1+y^2.
-    return sin(x) * (pow(y, 2) - 4 * pow(y, 1));
+    return 3 -y;
 }
 
 //Input parameter function, like x = f(t), y = g(t).
