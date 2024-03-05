@@ -52,11 +52,7 @@ int main() {
     double step = -3.50;
     double stepSize = 0.03;  // Initialize stepSize
     bool tracer = false;
-    float xValue;
-    float yValue;
     double t_value = 0;
-    double move_UD = 0;
-    double move_RL = 0;
     sf::Clock clock;
     sf::Clock clock_t;
 
@@ -117,8 +113,6 @@ int main() {
                         step = -3.50;
                         stepSize = 0.03;  // Initialize stepSize
                         tracer = false;
-                        xValue = 0;
-                        yValue = 0;
                         t_value = 0;
                         increaseValue = true;
                         window.display();

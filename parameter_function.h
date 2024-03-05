@@ -12,7 +12,6 @@ Point parameter_function(double t) {
     return output;
 }
 
-
 double origin_function_parameter(sf::RenderWindow& window, sf::VertexArray& graph, double size,
                                  Point (*parameter_input_function)(double), double current_t_value,
                                  double point_x, double point_y) {
