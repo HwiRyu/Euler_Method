@@ -5,6 +5,8 @@
 #include <sstream>
 #include "scale.h"
 #include "euler_method.h"
+#include "parameter_function.h"
+#include "one_variable_function.h"
 
 int main() {
     // Window initial setting-------------------------------------------------------
