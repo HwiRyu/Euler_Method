@@ -24,7 +24,7 @@ int main() {
         std::cerr << "Error loading font\n";
         return 1;
     }
-    sf::View graphView(sf::FloatRect(-600.0f    , -400.0f, 1200.0f, 800.0f));
+    sf::View graphView(sf::FloatRect(-600.0f, -400.0f, 1200.0f, 800.0f));
     window.setView(graphView);
 
     sf::Text stepSizeText("", font, 12);
@@ -42,6 +42,11 @@ int main() {
     sf::Text current_t_value("", font, 12);
     current_t_value.setPosition(300, -376);
     current_t_value.setFillColor(sf::Color::Black);
+
+    sf::Text error("", font, 12);
+    error.setPosition(300, -352);
+    error.setFillColor(sf::Color::Black);
+
 
     //-----------------------------------------------------------------------------
 
@@ -125,23 +130,6 @@ int main() {
                             else
                                 increaseValue = false;
                         break;
-
-//                    case sf::Keyboard::Up:
-//                        if (!tracer)
-//                            move_UD += 1;
-//                        break;
-//                    case sf::Keyboard::Down:
-//                        if (!tracer)
-//                            move_UD -= 1;
-//                        break;
-//                    case sf::Keyboard::Right:
-//                        if (!tracer)
-//                            move_RL += 1;
-//                        break;
-//                    case sf::Keyboard::Left:
-//                        if (!tracer)
-//                            move_RL -= 1;
-//                        break;
                     default:
                         break;
                 }
@@ -168,8 +156,12 @@ int main() {
                         startY = y_scale(startPoint.y, 1 / size);
                     }
                     lastClickTime = currentTime;
-                    if (-10000000 <=origin_function_parameter(window, parameter, size, parameter_function, t_value, x_scale(startPoint.x, 1 / size), y_scale(startPoint.y, 1 / size)))
-                        t_value = origin_function_parameter(window, parameter, size, parameter_function, t_value, x_scale(startPoint.x, 1 / size), y_scale(startPoint.y, 1 / size));
+                    if (-10000000 <= origin_function_parameter(window, parameter, size, parameter_function, t_value,
+                                                               x_scale(startPoint.x, 1 / size),
+                                                               y_scale(startPoint.y, 1 / size)))
+                        t_value = origin_function_parameter(window, parameter, size, parameter_function, t_value,
+                                                            x_scale(startPoint.x, 1 / size),
+                                                            y_scale(startPoint.y, 1 / size));
                 }
             }
 
@@ -185,36 +177,40 @@ int main() {
                     initial_point.setPosition(graphView.getCenter().x + 300, graphView.getCenter().y - 400);
                     current_t_value.setPosition(graphView.getCenter().x + 300, graphView.getCenter().y - 376);
                     tracer_on.setPosition(graphView.getCenter().x + 300, graphView.getCenter().y - 364);
-
+                    error.setPosition(graphView.getCenter().x + 300, graphView.getCenter().y - 352);
                 }
             }
         }
+
+        double x_fmod = graphView.getCenter().x - fmod(graphView.getCenter().x, size);
+        double y_fmod = graphView.getCenter().y - fmod(graphView.getCenter().y, size);
+        double x_start = -600 + fmod(600, size) + x_fmod;
+        double x_end = 600 + fmod(600, size) + x_fmod;
+        double y_start = -400 + fmod(400, size) + y_fmod;
+        double y_end = 400 + fmod(400, size) + y_fmod;
+
         stepSizeText.setString("Step Size: " + std::to_string(stepSize));
         initial_point.setString("Initial value: x =" + std::to_string(startX) + ", y =" + std::to_string(startY));
         tracer_on.setString("Tracer mode On");
-        current_t_value.setString("t = "+ std::to_string(t_value));
-
-        double x_fmod = graphView.getCenter().x - fmod(graphView.getCenter().x , size);
-        double y_fmod =  graphView.getCenter().y - fmod(graphView.getCenter().y, size);
-        double x_start = -600 + fmod(600,size) + x_fmod;
-        double x_end = 600 + fmod(600,size)+ x_fmod;
-        double y_start = -400 + fmod(400,size) + y_fmod;
-        double y_end = 400 + fmod(400,size) + y_fmod;
+        current_t_value.setString("t = " + std::to_string(t_value));
+        error.setString("x = " + std::to_string(Calculate_error(startX, (600 + graphView.getCenter().x) / size, stepSize)));
 
         // Clear the window
-        if (!tracer){
+        if (!tracer) {
             window.clear(sf::Color::White);
             window.draw(stepSizeText);
             window.draw(initial_point);
             window.draw(current_t_value);
-        }
-        else {
+            window.draw(error);
+
+        } else {
             window.draw(tracer_on);
         }
 
-        origin_function_parameter(window, parameter, size, parameter_function, t_value, x_scale(startPoint.x, 1 / size), y_scale(startPoint.y, 1 / size));
+        origin_function_parameter(window, parameter, size, parameter_function, t_value, x_scale(startPoint.x, 1 / size),
+                                  y_scale(startPoint.y, 1 / size));
         origin_function_one(window, origin, size, one_variable_function, x_start, x_end);
-        EulerMethod(window, EulerGraph, startX, startY, stepSize, size,tracer, differential_function, x_start, x_end);
+        EulerMethod(window, EulerGraph, startX, startY, stepSize, size, differential_function, x_start, x_end);
 
         sf::VertexArray axes(sf::Lines);
         axes.append(sf::Vertex(sf::Vector2f(-(600.0f - graphView.getCenter().x), 0.0f), sf::Color::Black));
@@ -222,14 +218,14 @@ int main() {
         axes.append(sf::Vertex(sf::Vector2f(0.0f, -400.0f + graphView.getCenter().y), sf::Color::Black));
         axes.append(sf::Vertex(sf::Vector2f(0.0f, 400.0f + graphView.getCenter().y), sf::Color::Black));
 
-        for (double i = x_start; i <= x_end; i += size ) {
-            axes.append(sf::Vertex(sf::Vector2f( i, -3), sf::Color::Black));
+        for (double i = x_start; i <= x_end; i += size) {
+            axes.append(sf::Vertex(sf::Vector2f(i, -3), sf::Color::Black));
             axes.append(sf::Vertex(sf::Vector2f(i, 3), sf::Color::Black));
         }
 
-        for (double i = y_start; i <= y_end; i += size ) {
-            axes.append(sf::Vertex(sf::Vector2f(-3,i), sf::Color::Black));
-            axes.append(sf::Vertex(sf::Vector2f(3,i), sf::Color::Black));
+        for (double i = y_start; i <= y_end; i += size) {
+            axes.append(sf::Vertex(sf::Vector2f(-3, i), sf::Color::Black));
+            axes.append(sf::Vertex(sf::Vector2f(3, i), sf::Color::Black));
         }
 
         window.draw(axes);

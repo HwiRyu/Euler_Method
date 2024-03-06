@@ -4,6 +4,14 @@
 
 #ifndef EULER_METHOD_PARAMETER_FUNCTION_H
 #define EULER_METHOD_PARAMETER_FUNCTION_H
+
+
+
+struct Point {
+    double x;
+    double y;
+};
+
 //Input parameter function, like x = f(t), y = g(t).
 Point parameter_function(double t) {
     Point output;
