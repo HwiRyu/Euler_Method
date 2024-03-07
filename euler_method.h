@@ -6,16 +6,16 @@ double differential_function(double x, double y, int number) {
     double t;
     switch (number) {
         case 1:
-            t = x;
-            break;
-        case 2:
             t = y;
             break;
+        case 2:
+            t = x;
+            break;
         case 3:
-            t = x*y;
+            t = y*(1-y);
             break;
         case 4:
-            t = exp(-x*x);
+            t = exp(1/y);
             break;
     }
     return t;
