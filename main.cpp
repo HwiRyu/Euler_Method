@@ -47,6 +47,10 @@ int main() {
     error.setPosition(300, -352);
     error.setFillColor(sf::Color::Black);
 
+    sf::Text error_size("", font, 12);
+    error_size.setPosition(300, -338);
+    error_size.setFillColor(sf::Color::Black);
+
 
     //-----------------------------------------------------------------------------
 
@@ -178,6 +182,7 @@ int main() {
                     current_t_value.setPosition(graphView.getCenter().x + 300, graphView.getCenter().y - 376);
                     tracer_on.setPosition(graphView.getCenter().x + 300, graphView.getCenter().y - 364);
                     error.setPosition(graphView.getCenter().x + 300, graphView.getCenter().y - 352);
+                    error_size.setPosition(graphView.getCenter().x + 300, graphView.getCenter().y - 338);
                 }
             }
         }
@@ -194,6 +199,10 @@ int main() {
         tracer_on.setString("Tracer mode On");
         current_t_value.setString("t = " + std::to_string(t_value));
         error.setString("x = " + std::to_string(Calculate_error(startX, (600 + graphView.getCenter().x) / size, stepSize)));
+        error_size.setString(std::to_string(Error_size(Calculate_error, startX, (600 + graphView.getCenter().x) / size, stepSize, reminder)));
+
+
+
 
         // Clear the window
         if (!tracer) {
@@ -202,6 +211,8 @@ int main() {
             window.draw(initial_point);
             window.draw(current_t_value);
             window.draw(error);
+            window.draw(error_size);
+
 
         } else {
             window.draw(tracer_on);

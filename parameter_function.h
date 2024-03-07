@@ -15,8 +15,10 @@ struct Point {
 //Input parameter function, like x = f(t), y = g(t).
 Point parameter_function(double t) {
     Point output;
-    output.x = sin(4*t) * (std::exp(cos(1/2*t)) - 2 * cos(18*t) - pow(sin(1/12), 5));
-    output.y = cos(5*t) * (std::exp(cos(1/3*t)) - 2 * cos(11*t) - pow(sin(1/12), 5));
+    output.x = 0;
+//            sin(4*t) * (std::exp(cos(1/2*t)) - 2 * cos(18*t) - pow(sin(1/12), 5));
+    output.y = 0;
+//            cos(5*t) * (std::exp(cos(1/3*t)) - 2 * cos(11*t) - pow(sin(1/12), 5));
     return output;
 }
 
