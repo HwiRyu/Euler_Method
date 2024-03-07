@@ -64,6 +64,7 @@ int main() {
     double t_value = 0;
     sf::Clock clock;
     sf::Clock clock_t;
+    int number = 1;
 
     sf::Time lastClickTime = sf::Time::Zero;
     sf::Vector2i lastMousePos; // 마지막 마우스 위치 저장
@@ -89,6 +90,18 @@ int main() {
             //In euler_method, control step size.
             if (event.type == sf::Event::KeyPressed) {
                 switch (event.key.code) {
+                    case sf::Keyboard::Num1:
+                        number = 1;
+                        break;
+                    case sf::Keyboard::Num2:
+                        number = 2;
+                        break;
+                    case sf::Keyboard::Num3:
+                        number = 3;
+                        break;
+                    case sf::Keyboard::Num4:
+                        number = 4;
+                        break;
                     case sf::Keyboard::A:
                         step -= 0.1;
                         break;
@@ -200,7 +213,7 @@ int main() {
         current_t_value.setString("t = " + std::to_string(t_value));
         error.setString("x = " + std::to_string(Calculate_error(startX, (600 + graphView.getCenter().x) / size, stepSize)));
         error_size.setString("Error Size: " + std::to_string(Error_size(startX, (600 + graphView.getCenter().x) / size,
-                                                                        stepSize, differential_function, size)));
+                                                                        stepSize, differential_function, number)));
 
 
 
@@ -221,7 +234,7 @@ int main() {
         origin_function_parameter(window, parameter, size, parameter_function, t_value, x_scale(startPoint.x, 1 / size),
                                   y_scale(startPoint.y, 1 / size));
         origin_function_one(window, origin, size, one_variable_function, x_start, x_end);
-        EulerMethod(window, EulerGraph, startX, startY, stepSize, size, differential_function, x_start, x_end);
+        EulerMethod(window, EulerGraph, startX, startY, stepSize, size, differential_function, x_start, x_end, number);
 
         sf::VertexArray axes(sf::Lines);
         axes.append(sf::Vertex(sf::Vector2f(-(600.0f - graphView.getCenter().x), 0.0f), sf::Color::Black));
