@@ -199,8 +199,8 @@ int main() {
         tracer_on.setString("Tracer mode On");
         current_t_value.setString("t = " + std::to_string(t_value));
         error.setString("x = " + std::to_string(Calculate_error(startX, (600 + graphView.getCenter().x) / size, stepSize)));
-        error_size.setString(std::to_string(Error_size(Calculate_error, startX, (600 + graphView.getCenter().x) / size, stepSize, reminder)));
-
+        error_size.setString("Error Size: " + std::to_string(Error_size(startX, (600 + graphView.getCenter().x) / size,
+                                                                        stepSize, differential_function, size)));
 
 
 

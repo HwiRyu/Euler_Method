@@ -3,13 +3,7 @@
 
 //Input Differential function. Find approximate solution.
 double differential_function(double x, double y) {
-    //differential_function is f(x,y(t)). i.e dy/dx = f(x, y(x)).
-    //Ex) If origin function is tan(x), then dy/dx = f(x,y(x)) = 1+y^2.
-    return x;
-}
-
-double twice_differential_function(double x, double y) {
-    return y;
+    return exp(-x*x)+ y;
 }
 
 void EulerMethod(sf::RenderWindow &window, sf::VertexArray &graph, double startX, double startY, double stepSize,
@@ -31,30 +25,23 @@ int Calculate_error(double start, double end, double stepSize) {
     return std::max(domain_range, 0);
 }
 
-double reminder(double h, double x){
-    double rem = 0;
-    double fac;
-    for (int i = 0; i < 100; i+=1) {
-        fac = 1;
-        for (int k = 1; k <= i+1; k+=1) {
-            fac *= k;
-        }
-        rem += pow(h,i+1)*1 / fac;
-    }
-    return rem;
-}
-
-double Error_size(int large_n(double, double, double),
-                  double start, double end, double stepSize,
-                  double reminder(double, double)) {
-    double L = 1; // 더 정확한 자연상수 e 사용
-    int large_N = large_n(start, end, stepSize);
+double Error_size(double start, double end, double stepSize,
+                  double differential_function(double, double),
+                  double size) {
     double error = 0;
+    double origin;
 
-    for (int i = 0; i <= large_N - 1; i += 1) {
-        error += reminder(stepSize, start + stepSize * i) * pow(1 + stepSize * L, i);
+    for (double x = start; x <= end; x += stepSize) {
+        double temporary_error = 0;
+        for (double i = x; i <= x + stepSize; i += stepSize / 100) {
+            double current_error = std::abs(differential_function(x, 0) - differential_function(i, 0));
+            if (temporary_error < current_error) {
+                temporary_error = current_error;
+            }
+        }
+        error += temporary_error;
     }
-    return error;
+    return error * stepSize;
 }
 
 
