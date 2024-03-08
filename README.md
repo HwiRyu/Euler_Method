@@ -6,8 +6,10 @@ and it can find the original function from a differential equation using the Eul
 In tracer mode, press the 'T' key to draw the phase line. 
 Observe the point moving according to time by pressing the 'F' key.
 
+And in one-variable differential equation, Can find meaningfull error.
+
 Update:
-I will add function that calculate supremum of error.
+
 
 ## Euler Method
 
