@@ -36,13 +36,13 @@ $$y_N \to y(x_N) \text{ as }h \to 0.$$
 
 **Proof:**
 
-$$Let e_n = y_n - y(x_n) \text{ , }  \( 0 \leq n \leq N \).$$
+$$\text{Let }e_n = y_n - y(x_n) \text{ , }  \( 0 \leq n \leq N \).$$
 
 $$
 \begin{align*}
 e_{n+1} &= y_{n+1} - y(x_{n+1}) \\
 &= y_n + h \cdot f(x_n, y_n) - \left( y(x_n) + h \cdot f(x_n, y(x_n)) + \frac{h^2}{2!} \cdot f'(x_n) + \dots \right) \\
-&\leq |y_n - y(x_n)| + h \cdot |f(x_n, y_n) - f(x_n, y(x_n))| + C \cdot h^2 \quad (C > 0, \text{for enough small h.}) \\
+|e_{n+1}| &\leq |y_n - y(x_n)| + h \cdot |f(x_n, y_n) - f(x_n, y(x_n))| + C \cdot h^2 \quad (C > 0, \text{for enough small h.}) \\
 &= |e_n| \cdot (1 + L \cdot h) + C \cdot h^2.
 \end{align*}
 $$
