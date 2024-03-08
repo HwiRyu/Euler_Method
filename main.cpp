@@ -18,12 +18,15 @@ int main() {
     sf::VertexArray origin(sf::LineStrip);
     sf::VertexArray parameter(sf::LineStrip);
     sf::VertexArray parameter_point(sf::LineStrip);
+    sf::VertexArray initial_origin_graph(sf::LineStrip);
+
 
     sf::Font font;
     if (!font.loadFromFile("/System/Library/Fonts/Monaco.ttf")) {
         std::cerr << "Error loading font\n";
         return 1;
     }
+
     sf::View graphView(sf::FloatRect(-600.0f, -400.0f, 1200.0f, 800.0f));
     window.setView(graphView);
 
@@ -58,13 +61,15 @@ int main() {
     double startX = 0;
     double startY = 0;
     double size = 30;
-    double step = -3.50;
-    double stepSize = 0.03;  // Initialize stepSize
+    double step = 1;
+    double stepSize = 2;  // Initialize stepSize
     bool tracer = false;
     double t_value = 0;
     sf::Clock clock;
     sf::Clock clock_t;
     int number = 1;
+    bool calcul = true;
+    double upperbound_error = 0;
 
     sf::Time lastClickTime = sf::Time::Zero;
     sf::Vector2i lastMousePos; // 마지막 마우스 위치 저장
@@ -76,7 +81,7 @@ int main() {
     while (window.isOpen()) {
         elapsedTime = clock_t.getElapsedTime();
         if (increaseValue && elapsedTime.asSeconds() >= 0.001f) {
-            t_value += 0.001f; // 간격을 1초로 변경함
+            t_value += 0.001f;
             clock_t.restart();
         }
 
@@ -101,6 +106,24 @@ int main() {
                         break;
                     case sf::Keyboard::Num4:
                         number = 4;
+                        break;
+                    case sf::Keyboard::Num5:
+                        number = 5;
+                        break;
+                    case sf::Keyboard::Num6:
+                        number = 6;
+                        break;
+                    case sf::Keyboard::Num7:
+                        number = 7;
+                        break;
+                    case sf::Keyboard::Num8:
+                        number = 8;
+                        break;
+                    case sf::Keyboard::U:
+                        if (calcul)
+                            calcul = false;
+                        else
+                            calcul = true;
                         break;
                     case sf::Keyboard::A:
                         step -= 0.1;
@@ -132,8 +155,8 @@ int main() {
                         startX = 0;
                         startY = 0;
                         size = 30;
-                        step = -3.50;
-                        stepSize = 0.03;  // Initialize stepSize
+                        step = 1;
+                        stepSize = 2;  // Initialize stepSize
                         tracer = false;
                         t_value = 0;
                         increaseValue = true;
@@ -160,15 +183,12 @@ int main() {
                 size = (size < 5) ? 5 : ((size > 150.0) ? 150.0 : size);
 
             }
-
-
-            //Choose Initial point in window
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     sf::Time currentTime = clock.getElapsedTime();
                     lastMousePos = sf::Mouse::getPosition(window);
                     startPoint = window.mapPixelToCoords(lastMousePos); // 초기 클릭 위치 저장
-                    if (currentTime - lastClickTime < sf::seconds(0.2)) {
+                    if (currentTime - lastClickTime <= sf::seconds(0.2)) {
                         startX = x_scale(startPoint.x, 1 / size);
                         startY = y_scale(startPoint.y, 1 / size);
                     }
@@ -206,14 +226,17 @@ int main() {
         double x_end = 600 + fmod(600, size) + x_fmod;
         double y_start = -400 + fmod(400, size) + y_fmod;
         double y_end = 400 + fmod(400, size) + y_fmod;
+        if (calcul)
+            upperbound_error = Error_size(startX, (600 + graphView.getCenter().x) / size, stepSize, differential_function, number);
+        else
+            upperbound_error = -1;
 
         stepSizeText.setString("Step Size: " + std::to_string(stepSize));
         initial_point.setString("Initial value: x =" + std::to_string(startX) + ", y =" + std::to_string(startY));
         tracer_on.setString("Tracer mode On");
         current_t_value.setString("t = " + std::to_string(t_value));
         error.setString("x = " + std::to_string(Calculate_error(startX, (600 + graphView.getCenter().x) / size, stepSize)));
-        error_size.setString("Error Size: " + std::to_string(Error_size(startX, (600 + graphView.getCenter().x) / size,
-                                                                        stepSize, differential_function, number)));
+        error_size.setString("Error Size: " + std::to_string(upperbound_error));
 
 
 
@@ -225,8 +248,7 @@ int main() {
             window.draw(current_t_value);
             window.draw(error);
             window.draw(error_size);
-
-
+            window.draw(initial_origin_graph);
         } else {
             window.draw(tracer_on);
         }
@@ -235,8 +257,9 @@ int main() {
                                   y_scale(startPoint.y, 1 / size));
         origin_function_one(window, origin, size, one_variable_function, x_start, x_end);
         EulerMethod(window, EulerGraph, startX, startY, stepSize, size, differential_function, x_start, x_end, number);
+        initial_origin_function_one(window, initial_origin_graph, size, initial_one_variable_function, x_start, x_end, startX, startY, number);
 
-        sf::VertexArray axes(sf::Lines);
+            sf::VertexArray axes(sf::Lines);
         axes.append(sf::Vertex(sf::Vector2f(-(600.0f - graphView.getCenter().x), 0.0f), sf::Color::Black));
         axes.append(sf::Vertex(sf::Vector2f(600.0f + graphView.getCenter().x, 0.0f), sf::Color::Black));
         axes.append(sf::Vertex(sf::Vector2f(0.0f, -400.0f + graphView.getCenter().y), sf::Color::Black));

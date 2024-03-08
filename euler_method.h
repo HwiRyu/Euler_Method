@@ -17,6 +17,18 @@ double differential_function(double x, double y, int number) {
         case 4:
             t = exp(1/y);
             break;
+        case 5:
+            t = exp(-x*x);
+            break;
+        case 6:
+            t = y/(1+x*x);
+            break;
+        case 7:
+            t = exp(sin(x));
+            break;
+        case 8:
+            t = 1 / (1+y*y*y);
+            break;
     }
     return t;
 }
