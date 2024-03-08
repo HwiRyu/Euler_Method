@@ -22,7 +22,7 @@ y(x_0) &= y_0.
 \end{align*}
 $$
 
-$$\text{Suppose that} \( f(x, y) \) \text{ satisfies the Lipschitz condition, }\forall x \in [x_0, p], \forall y \in \mathbb{R}.$$
+$$\text{Suppose that } f(x, y) \text{ satisfies the Lipschitz condition, }\forall x \in [x_0, p], \forall y \in \mathbb{R}.$$
 
 Let
 
