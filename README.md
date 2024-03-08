@@ -6,7 +6,7 @@ and it can find the original function from a differential equation using the Eul
 In tracer mode, press the 'T' key to draw the phase line. 
 Observe the point moving according to time by pressing the 'F' key.
 
-And for one-variable differential equation, Can find meaningfull error.
+And for one-variable differential equation, Can find meaningfull upper bound of error.
 
 Update:
 
