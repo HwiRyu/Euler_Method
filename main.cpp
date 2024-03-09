@@ -8,17 +8,17 @@
 #include "parameter_function.h"
 #include "one_variable_function.h"
 
+
 int main() {
     // Window initial setting-------------------------------------------------------
     const int width = 1200;
     const int height = 800;
 
-    sf::RenderWindow window(sf::VideoMode(width, height), "Graph Drawing");
+    sf::RenderWindow window(sf::VideoMode(width, height), "Euler Method");
     sf::VertexArray EulerGraph(sf::LineStrip);
     sf::VertexArray origin(sf::LineStrip);
     sf::VertexArray parameter(sf::LineStrip);
     sf::VertexArray parameter_point(sf::LineStrip);
-    sf::VertexArray initial_origin_graph(sf::LineStrip);
 
 
     sf::Font font;
@@ -70,7 +70,7 @@ int main() {
     int number = 1;
     bool calcul = true;
     double upperbound_error = 0;
-
+    bool origin_show = true;
     sf::Time lastClickTime = sf::Time::Zero;
     sf::Vector2i lastMousePos; // 마지막 마우스 위치 저장
     sf::Vector2f startPoint; // 초기 클릭 위치 저장
@@ -150,6 +150,10 @@ int main() {
                         if (!tracer)
                             t_value += 0.01;
                         break;
+                    case sf::Keyboard::L:
+                        step = 1;
+                        stepSize = 2;  // Initialize stepSize
+                        break;
                     case sf::Keyboard::R:
                         //Initialize
                         startX = 0;
@@ -227,7 +231,8 @@ int main() {
         double y_start = -400 + fmod(400, size) + y_fmod;
         double y_end = 400 + fmod(400, size) + y_fmod;
         if (calcul)
-            upperbound_error = Error_size(startX, (600 + graphView.getCenter().x) / size, stepSize, differential_function, number);
+            upperbound_error = Error_size(startX, (600 + graphView.getCenter().x) / size, stepSize,
+                                          differential_function, number);
         else
             upperbound_error = -1;
 
@@ -235,7 +240,8 @@ int main() {
         initial_point.setString("Initial value: x =" + std::to_string(startX) + ", y =" + std::to_string(startY));
         tracer_on.setString("Tracer mode On");
         current_t_value.setString("t = " + std::to_string(t_value));
-        error.setString("x = " + std::to_string(Calculate_error(startX, (600 + graphView.getCenter().x) / size, stepSize)));
+        error.setString(
+                "x = " + std::to_string(Calculate_error(startX, (600 + graphView.getCenter().x) / size, stepSize)));
         error_size.setString("Error Size: " + std::to_string(upperbound_error));
 
 
@@ -248,7 +254,7 @@ int main() {
             window.draw(current_t_value);
             window.draw(error);
             window.draw(error_size);
-            window.draw(initial_origin_graph);
+
         } else {
             window.draw(tracer_on);
         }
@@ -257,9 +263,8 @@ int main() {
                                   y_scale(startPoint.y, 1 / size));
         origin_function_one(window, origin, size, one_variable_function, x_start, x_end);
         EulerMethod(window, EulerGraph, startX, startY, stepSize, size, differential_function, x_start, x_end, number);
-        initial_origin_function_one(window, initial_origin_graph, size, initial_one_variable_function, x_start, x_end, startX, startY, number);
 
-            sf::VertexArray axes(sf::Lines);
+        sf::VertexArray axes(sf::Lines);
         axes.append(sf::Vertex(sf::Vector2f(-(600.0f - graphView.getCenter().x), 0.0f), sf::Color::Black));
         axes.append(sf::Vertex(sf::Vector2f(600.0f + graphView.getCenter().x, 0.0f), sf::Color::Black));
         axes.append(sf::Vertex(sf::Vector2f(0.0f, -400.0f + graphView.getCenter().y), sf::Color::Black));
