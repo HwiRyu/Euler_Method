@@ -51,7 +51,7 @@ build cmake_object_order_depends_target_Picard_iteration: phony || CMakeFiles/Pi
 
 build CMakeFiles/Picard_iteration.dir/main.cpp.o: CXX_COMPILER__Picard_iteration_unscanned_Debug /Users/persist/Desktop/Code/Picard_iteration/main.cpp || cmake_object_order_depends_target_Picard_iteration
   DEP_FILE = CMakeFiles/Picard_iteration.dir/main.cpp.o.d
-  FLAGS = -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -mmacosx-version-min=14.1 -fcolor-diagnostics
+  FLAGS = -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mmacosx-version-min=14.1 -fcolor-diagnostics
   INCLUDES = -I/usr/local/include -isystem /opt/homebrew/include
   OBJECT_DIR = CMakeFiles/Picard_iteration.dir
   OBJECT_FILE_DIR = CMakeFiles/Picard_iteration.dir
@@ -65,7 +65,7 @@ build CMakeFiles/Picard_iteration.dir/main.cpp.o: CXX_COMPILER__Picard_iteration
 # Link the executable Picard_iteration
 
 build Picard_iteration: CXX_EXECUTABLE_LINKER__Picard_iteration_Debug CMakeFiles/Picard_iteration.dir/main.cpp.o | /opt/homebrew/lib/libsfml-graphics.2.6.1.dylib /opt/homebrew/lib/libsfml-audio.2.6.1.dylib /opt/homebrew/lib/libsfml-network.2.6.1.dylib /opt/homebrew/lib/libsfml-window.2.6.1.dylib /opt/homebrew/lib/libsfml-system.2.6.1.dylib
-  FLAGS = -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX14.2.sdk -mmacosx-version-min=14.1
+  FLAGS = -std=c++11 -g -arch arm64 -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX.sdk -mmacosx-version-min=14.1
   LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/lib  /opt/homebrew/lib/libsfml-graphics.2.6.1.dylib  /opt/homebrew/lib/libsfml-audio.2.6.1.dylib  /opt/homebrew/lib/libsfml-network.2.6.1.dylib  /opt/homebrew/lib/libsfml-window.2.6.1.dylib  /opt/homebrew/lib/libsfml-system.2.6.1.dylib
   OBJECT_DIR = CMakeFiles/Picard_iteration.dir
   POST_BUILD = :

@@ -19,6 +19,7 @@ int main() {
     sf::VertexArray origin(sf::LineStrip);
     sf::VertexArray parameter(sf::LineStrip);
     sf::VertexArray parameter_point(sf::LineStrip);
+    sf::VertexArray second_EulerMethod_graph(sf::LineStrip);
 
 
     sf::Font font;
@@ -68,7 +69,7 @@ int main() {
     sf::Clock clock;
     sf::Clock clock_t;
     int number = 1;
-    bool calcul = true;
+    bool calcul = false;
     double upperbound_error = 0;
     bool origin_show = true;
     sf::Time lastClickTime = sf::Time::Zero;
@@ -76,6 +77,7 @@ int main() {
     sf::Vector2f startPoint; // 초기 클릭 위치 저장
     sf::Time elapsedTime;
     bool increaseValue = false;
+    double diff_y_initial = 1;
 
     // Main loop
     while (window.isOpen()) {
@@ -119,6 +121,11 @@ int main() {
                     case sf::Keyboard::Num8:
                         number = 8;
                         break;
+                    case sf::Keyboard::Num0:
+                        step = -3.7;
+                        break;
+
+
                     case sf::Keyboard::U:
                         if (calcul)
                             calcul = false;
@@ -143,12 +150,17 @@ int main() {
                         tracer = !tracer;  // Toggle tracer when 'T' is pressed
                         break;
                     case sf::Keyboard::Q:
-                        if (!tracer)
+                        if (!tracer) {
                             t_value -= 0.01;
+                            diff_y_initial -= 0.1;
+                        }
+
                         break;
                     case sf::Keyboard::E:
-                        if (!tracer)
+                        if (!tracer) {
                             t_value += 0.01;
+                            diff_y_initial += 0.1;
+                        }
                         break;
                     case sf::Keyboard::L:
                         step = 1;
@@ -187,6 +199,7 @@ int main() {
                 size = (size < 5) ? 5 : ((size > 150.0) ? 150.0 : size);
 
             }
+
             if (event.type == sf::Event::MouseButtonPressed) {
                 if (event.mouseButton.button == sf::Mouse::Left) {
                     sf::Time currentTime = clock.getElapsedTime();
@@ -263,7 +276,8 @@ int main() {
                                   y_scale(startPoint.y, 1 / size));
         origin_function_one(window, origin, size, one_variable_function, x_start, x_end);
         EulerMethod(window, EulerGraph, startX, startY, stepSize, size, differential_function, x_start, x_end, number);
-
+        second_EulerMethod(window, EulerGraph, startX, startY, diff_y_initial, stepSize, size, second_ode, x_start,
+                           x_end, number);
         sf::VertexArray axes(sf::Lines);
         axes.append(sf::Vertex(sf::Vector2f(-(600.0f - graphView.getCenter().x), 0.0f), sf::Color::Black));
         axes.append(sf::Vertex(sf::Vector2f(600.0f + graphView.getCenter().x, 0.0f), sf::Color::Black));

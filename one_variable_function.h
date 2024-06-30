@@ -7,7 +7,7 @@
 
 //Input one variable functoin, like y = sin(x).
 double one_variable_function(double x) {
-    return 0;
+    return pow(x - 10,3) / pow(x - 10,4);
 }
 
 void origin_function_one(sf::RenderWindow& window, sf::VertexArray& graph, double size, double one_variable_input_function(double), double start, double end) {

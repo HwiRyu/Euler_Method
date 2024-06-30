@@ -1,10 +1,5 @@
 # ninja log v5
-0	39	1709982560364933935	build.ninja	5854951cd8e4e0b0
-5	654	1709967452898552933	CMakeFiles/Picard_iteration.dir/main.cpp.o	b687bcf2a7c27a3e
-654	800	1709967453046031849	Picard_iteration	143de3bef5ad6888
+5	55	1717307263437496853	build.ninja	5854951cd8e4e0b0
+16	655	1717218474752709372	CMakeFiles/Picard_iteration.dir/main.cpp.o	f8e1cdbda94c69e7
+655	688	1717218474789153583	Picard_iteration	eeac1d345dfb5146
 4	443	1706967869239398040	CMakeFiles/Picard_iteration.dir/picard.cpp.o	580d61f97e755047
-0	62	1709982560364933935	build.ninja	5854951cd8e4e0b0
-4	398	1709982567121530938	CMakeFiles/Picard_iteration.dir/main.cpp.o	b687bcf2a7c27a3e
-398	570	1709982567292236159	Picard_iteration	143de3bef5ad6888
-5	647	1709982643590511133	CMakeFiles/Picard_iteration.dir/main.cpp.o	b687bcf2a7c27a3e
-647	793	1709982643735944672	Picard_iteration	143de3bef5ad6888

@@ -6,19 +6,19 @@ double differential_function(double x, double y, int number) {
     double t;
     switch (number) {
         case 1:
-            t = y;
+            t = y*y*(y*y-4);
             break;
         case 2:
-            t = x;
-            break;
-        case 3:
             t = y*(1-y);
             break;
+        case 3:
+            t = y*(2-y);
+            break;
         case 4:
-            t = exp(1/y);
+            t = y*(1-2*y);
             break;
         case 5:
-            t = exp(-x*x);
+            t = y*(0-y);
             break;
         case 6:
             t = y/(1+x*x);
@@ -27,7 +27,7 @@ double differential_function(double x, double y, int number) {
             t = exp(sin(x));
             break;
         case 8:
-            t = 1 / (1+y*y*y);
+            t = exp(-y*y);
             break;
     }
     return t;
@@ -46,6 +46,29 @@ void EulerMethod(sf::RenderWindow &window, sf::VertexArray &graph, double startX
     }
     window.draw(graph);
 }
+
+double second_ode(double x, double y, double diff_y) {
+    double f_x_y = x;
+    return f_x_y;
+}
+
+
+void second_EulerMethod(sf::RenderWindow &window, sf::VertexArray &graph, double startX, double startY, double start_diff_Y ,double stepSize,
+                 double size, double input_function(double, double, double), double start, double end, int number) {
+    double y = startY;
+    double diff_y  = start_diff_Y;
+    graph.clear();
+
+    for (double x = startX; x <= end / size; x += stepSize) {
+        if (x_scale(x, size) >= start)
+            graph.append(sf::Vertex(sf::Vector2f(x_scale(x, size), y_scale(y, size)), sf::Color::Green));
+        diff_y += stepSize * input_function(x, y, diff_y);
+        y += stepSize*diff_y;
+    }
+
+    window.draw(graph);
+}
+
 
 int Calculate_error(double start, double end, double stepSize) {
     int domain_range = floor((end - start) / stepSize);
